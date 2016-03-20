@@ -15,7 +15,6 @@ namespace ManagedDLL
     };
 
 
-
     // Interface implementation.
 	public class ManagedClass:ICalculator
 	{
