@@ -1,0 +1,13 @@
+# ignore the following files and folders
+*.xml
+*.XML
+*.zip
+*.ZIP
+*.iso
+*.exe
+
+bin/*
+bin/Debug/*
+bin/Release/*
+aold/*
+installpack/*
