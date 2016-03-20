@@ -1,0 +1,63 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.00.50727.762 (4542d4b4).
+//
+// c:\users\grant\desktop\dev\gitprojects\csharpinsidecpp2005\cppclient\debug\manageddll.tlh
+//
+// C++ source equivalent of Win32 type library C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.tlb
+// compiler-generated file created 03/20/16 at 21:16:28 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace ManagedDLL {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("115558bc-f022-4d76-8afe-d8b98a714cb4"))
+/* LIBID */ __ManagedDLL;
+struct __declspec(uuid("a6a93de4-fc17-393c-80b5-0ac1564a619b"))
+/* dual interface */ ICalculator;
+struct /* coclass */ ManagedClass;
+struct __declspec(uuid("c8e9181c-f064-3ec1-869e-042c6fdd3e46"))
+/* dual interface */ _ManagedClass;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(ICalculator, __uuidof(ICalculator));
+_COM_SMARTPTR_TYPEDEF(_ManagedClass, __uuidof(_ManagedClass));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("a6a93de4-fc17-393c-80b5-0ac1564a619b"))
+ICalculator : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall Add (
+        /*[in]*/ long Number1,
+        /*[in]*/ long Number2,
+        /*[out,retval]*/ long * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("d64f8cf1-6f49-3730-896f-75fb4c5e2cf5"))
+ManagedClass;
+    // [ default ] interface _ManagedClass
+    // interface _Object
+    // interface ICalculator
+
+struct __declspec(uuid("c8e9181c-f064-3ec1-869e-042c6fdd3e46"))
+_ManagedClass : IDispatch
+{};
+
+} // namespace ManagedDLL
+
+#pragma pack(pop)

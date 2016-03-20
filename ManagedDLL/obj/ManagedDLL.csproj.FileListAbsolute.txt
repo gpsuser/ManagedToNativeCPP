@@ -1,0 +1,5 @@
+C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.dll
+C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.pdb
+C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\obj\Debug\ManagedDLL.dll
+C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\obj\Debug\ManagedDLL.pdb
