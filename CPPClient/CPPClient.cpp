@@ -23,6 +23,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	pICalc->Add(5, 10, &lResult); // "raw interfaces only" allows passing the pointer to the result as an extra parameter
     wprintf(L"The result is %d\n", lResult);
 
+	pICalc->Subtract(25, 3, &lResult); // "raw interfaces only" allows passing the pointer to the result as an extra parameter
+    wprintf(L"The result is %d\n", lResult);
+
+
 	// Uninitialize COM.
     CoUninitialize();
     return 0;

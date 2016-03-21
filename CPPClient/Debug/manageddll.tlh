@@ -3,7 +3,7 @@
 // c:\users\grant\desktop\dev\gitprojects\csharpinsidecpp2005\cppclient\debug\manageddll.tlh
 //
 // C++ source equivalent of Win32 type library C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.tlb
-// compiler-generated file created 03/20/16 at 21:16:28 - DO NOT EDIT!
+// compiler-generated file created 03/21/16 at 05:38:46 - DO NOT EDIT!
 
 #pragma once
 #pragma pack(push, 8)
@@ -18,7 +18,7 @@ namespace ManagedDLL {
 
 struct __declspec(uuid("115558bc-f022-4d76-8afe-d8b98a714cb4"))
 /* LIBID */ __ManagedDLL;
-struct __declspec(uuid("a6a93de4-fc17-393c-80b5-0ac1564a619b"))
+struct __declspec(uuid("558938e6-24fc-3245-958d-c029d4f4e8f9"))
 /* dual interface */ ICalculator;
 struct /* coclass */ ManagedClass;
 struct __declspec(uuid("c8e9181c-f064-3ec1-869e-042c6fdd3e46"))
@@ -35,7 +35,7 @@ _COM_SMARTPTR_TYPEDEF(_ManagedClass, __uuidof(_ManagedClass));
 // Type library items
 //
 
-struct __declspec(uuid("a6a93de4-fc17-393c-80b5-0ac1564a619b"))
+struct __declspec(uuid("558938e6-24fc-3245-958d-c029d4f4e8f9"))
 ICalculator : IDispatch
 {
     //
@@ -45,6 +45,10 @@ ICalculator : IDispatch
       virtual HRESULT __stdcall Add (
         /*[in]*/ long Number1,
         /*[in]*/ long Number2,
+        /*[out,retval]*/ long * pRetVal ) = 0;
+      virtual HRESULT __stdcall Subtract (
+        /*[in]*/ long Num1,
+        /*[in]*/ long Num2,
         /*[out,retval]*/ long * pRetVal ) = 0;
 };
 
