@@ -13,6 +13,8 @@ namespace ManagedDLL
     {
         int Add(int Number1, int Number2);
         int Subtract(int Num1, int Num2);
+        double ArrayTest(double[] ar);
+        //string stringTest(string str);
     };
 
 
@@ -29,5 +31,19 @@ namespace ManagedDLL
 
             return Num1 - Num2;
         }
+
+       /* public string stringTest(string str)
+        {
+            return (str + " : testing");
+        }*/
+
+        public double ArrayTest(double[] ar){
+
+
+            return ar[1];
+        }
     }
+
+
+
 }
