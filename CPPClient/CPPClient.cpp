@@ -24,10 +24,11 @@ int _tmain(int argc, _TCHAR* argv[])
     ICalculatorPtr pICalc(__uuidof(ManagedClass));
     long lResult = 0;
 
-    CComSafeArray<double> arr(3);
+    CComSafeArray<double> arr(4);
     arr[0] = 2.0;
     arr[1] = 3.0;
     arr[2] = 5.0;
+	arr[3] = 6.4;
 
     
 
@@ -38,10 +39,33 @@ int _tmain(int argc, _TCHAR* argv[])
 	pICalc->Subtract(25, 3, &lResult); // "raw interfaces only" allows passing the pointer to the result as an extra parameter
     wprintf(L"The result is %d\n", lResult);
 
+
+    // send in an array to c#, get single result back
+
     double lResult1 = 0.0;
 
 	pICalc->ArrayTest(arr, &lResult1);
 	wprintf(L"The result is %f\n", lResult1);
+
+
+	// send in array to C#, try to receive an array result from c#
+
+// http://www.codeproject.com/Questions/322206/CComSafeArray-ways-of-use
+
+    //CComSafeArray<double> lResult2(4);
+  //  SAFEARRAY(VARIANT) res; //[4];
+	//int res[4]; // = NULL; //[4];
+
+ // http://www.codeproject.com/Articles/16206/Call-C-code-from-C-and-read-an-array-of-struct-whi
+
+	//pICalc->ReturnArrayTest(arr, &lResult2);
+	//wprintf(L"The result is %f\n", lResult2[1]);
+  // CComSafeArray<double> res(4);
+    SAFEARRAY** res = NULL;
+	pICalc->ReturnArrayTest(res);
+	//wprintf(L"The result is %f\n", res[1]);
+
+	// STILL NEED TO DEFINE TEH SAFEARRAY** 
 
 	// Uninitialize COM.
     CoUninitialize();
