@@ -4,43 +4,18 @@
 //#include <iostream>
 #include "stdafx.h"
 #include "tchar.h"
-// Import the type library.
-//#import "..\ManagedDLL\bin\Debug\ManagedDLL.tlb" raw_interfaces_only
-#import "C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.tlb" raw_interfaces_only
-
 #include <atlbase.h>
 #include <atlsafe.h>
+#import "C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.tlb" raw_interfaces_only
+
 
 // TO DO :
 // Try CComSafeArray in 2D 
  
 using namespace ManagedDLL;
 
-// print the contents of the SAFEARRAY after it has been initialised in the managed .dll
-static void printSAFEARRAY(SAFEARRAY* res){
-
-	double* pVals;
-    HRESULT hr1 = SafeArrayAccessData(res, (void**)&pVals); // direct access to SA memory
-
-
-	if (SUCCEEDED(hr1))
-	{
-	  long lowerBound, upperBound;  // get array bounds
-	  SafeArrayGetLBound(res, 1 , &lowerBound);
-	  SafeArrayGetUBound(res, 1, &upperBound);
-
-	  long cnt_elements = upperBound - lowerBound + 1; 
-
-	  for (int i = 0; i < cnt_elements; ++i)  // iterate through returned values
-	  {                              
-		double lVal = pVals[i];   
-		wprintf(L"The element value is %d\n", lVal); //lVal);
-		//std::cout << "element " << i << ": value = " << lVal << std::endl;
-	  } 
-
-    }
-}
-
+// to print the contents of the SAFEARAY once initialised inside managed dll
+static void printSAFEARRAY(SAFEARRAY*);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -68,58 +43,56 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
     // send in an array to c#, get single result back
-
     double lResult1 = 0.0;
-
 	pICalc->ArrayTest(arr, &lResult1);
 	wprintf(L"The result is %f\n", lResult1);
 
 
 	// send in array to C#, try to receive an array result from c#
-
-// http://www.codeproject.com/Questions/322206/CComSafeArray-ways-of-use
-
+	// http://www.codeproject.com/Questions/322206/CComSafeArray-ways-of-use
     //CComSafeArray<double> lResult2(4);
-  //  SAFEARRAY(VARIANT) res; //[4];
+	//  SAFEARRAY(VARIANT) res; //[4];
 	//int res[4]; // = NULL; //[4];
-
- // http://www.codeproject.com/Articles/16206/Call-C-code-from-C-and-read-an-array-of-struct-whi
-
+	// http://www.codeproject.com/Articles/16206/Call-C-code-from-C-and-read-an-array-of-struct-whi
 	//pICalc->ReturnArrayTest(arr, &lResult2);
 	//wprintf(L"The result is %f\n", lResult2[1]);
-  // CComSafeArray<double> res(4);
-    SAFEARRAY* res = NULL;
+	// CComSafeArray<double> res(4);
+    
+	SAFEARRAY* res = NULL;
 	pICalc->InitialiseArray(&res);
-	//wprintf(L"The result is %f\n", res[2]);
-
-	printSAFEARRAY(res);
-
-//SAFEARRAY* saValues = ... 
-/* double* pVals;
-HRESULT hr1 = SafeArrayAccessData(res, (void**)&pVals); // direct access to SA memory
-
-
-if (SUCCEEDED(hr1))
-{
-  long lowerBound, upperBound;  // get array bounds
-  SafeArrayGetLBound(res, 1 , &lowerBound);
-  SafeArrayGetUBound(res, 1, &upperBound);
-
-  long cnt_elements = upperBound - lowerBound + 1; 
-  for (int i = 0; i < cnt_elements; ++i)  // iterate through returned values
-  {                              
-    double lVal = pVals[i];   
-	wprintf(L"The result is %d\n", lVal); //lVal);
-    //std::cout << "element " << i << ": value = " << lVal << std::endl;
-  }       
-  SafeArrayUnaccessData(res);
-}
-*/
-SafeArrayDestroy(res);
+	
+	printSAFEARRAY(res); 
+  
+	SafeArrayDestroy(res);
 
  
 
 	// Uninitialize COM.
      CoUninitialize();
     return 0;
+}
+
+// print the contents of the SAFEARRAY after it has been initialised in the managed .dll
+static void printSAFEARRAY(SAFEARRAY* res){
+
+	double* pVals;
+    HRESULT hr1 = SafeArrayAccessData(res, (void**)&pVals); // direct access to SA memory
+
+
+	if (SUCCEEDED(hr1))
+	{
+	  long lowerBound, upperBound;  // get array bounds
+	  SafeArrayGetLBound(res, 1 , &lowerBound);
+	  SafeArrayGetUBound(res, 1, &upperBound);
+
+	  long cnt_elements = upperBound - lowerBound + 1; 
+
+	  for (int i = 0; i < cnt_elements; ++i)  // iterate through returned values
+	  {                              
+		double lVal = pVals[i];   
+		wprintf(L"The element value is %d\n", lVal); //lVal);
+		//std::cout << "element " << i << ": value = " << lVal << std::endl;
+	  } 
+
+    }
 }
