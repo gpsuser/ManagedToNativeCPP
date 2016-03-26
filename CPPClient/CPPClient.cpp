@@ -1,6 +1,7 @@
 // CPPClient.cpp: Defines the entry point for the console application.
 // C++ client that calls a managed DLL.
 
+//#include <iostream>
 #include "stdafx.h"
 #include "tchar.h"
 // Import the type library.
@@ -14,6 +15,32 @@
 // Try CComSafeArray in 2D 
  
 using namespace ManagedDLL;
+
+// print the contents of the SAFEARRAY after it has been initialised in the managed .dll
+static void printSAFEARRAY(SAFEARRAY* res){
+
+	double* pVals;
+    HRESULT hr1 = SafeArrayAccessData(res, (void**)&pVals); // direct access to SA memory
+
+
+	if (SUCCEEDED(hr1))
+	{
+	  long lowerBound, upperBound;  // get array bounds
+	  SafeArrayGetLBound(res, 1 , &lowerBound);
+	  SafeArrayGetUBound(res, 1, &upperBound);
+
+	  long cnt_elements = upperBound - lowerBound + 1; 
+
+	  for (int i = 0; i < cnt_elements; ++i)  // iterate through returned values
+	  {                              
+		double lVal = pVals[i];   
+		wprintf(L"The element value is %d\n", lVal); //lVal);
+		//std::cout << "element " << i << ": value = " << lVal << std::endl;
+	  } 
+
+    }
+}
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -61,13 +88,38 @@ int _tmain(int argc, _TCHAR* argv[])
 	//pICalc->ReturnArrayTest(arr, &lResult2);
 	//wprintf(L"The result is %f\n", lResult2[1]);
   // CComSafeArray<double> res(4);
-    SAFEARRAY** res = NULL;
-	pICalc->ReturnArrayTest(res);
-	//wprintf(L"The result is %f\n", res[1]);
+    SAFEARRAY* res = NULL;
+	pICalc->InitialiseArray(&res);
+	//wprintf(L"The result is %f\n", res[2]);
 
-	// STILL NEED TO DEFINE TEH SAFEARRAY** 
+	printSAFEARRAY(res);
+
+//SAFEARRAY* saValues = ... 
+/* double* pVals;
+HRESULT hr1 = SafeArrayAccessData(res, (void**)&pVals); // direct access to SA memory
+
+
+if (SUCCEEDED(hr1))
+{
+  long lowerBound, upperBound;  // get array bounds
+  SafeArrayGetLBound(res, 1 , &lowerBound);
+  SafeArrayGetUBound(res, 1, &upperBound);
+
+  long cnt_elements = upperBound - lowerBound + 1; 
+  for (int i = 0; i < cnt_elements; ++i)  // iterate through returned values
+  {                              
+    double lVal = pVals[i];   
+	wprintf(L"The result is %d\n", lVal); //lVal);
+    //std::cout << "element " << i << ": value = " << lVal << std::endl;
+  }       
+  SafeArrayUnaccessData(res);
+}
+*/
+SafeArrayDestroy(res);
+
+ 
 
 	// Uninitialize COM.
-    CoUninitialize();
+     CoUninitialize();
     return 0;
 }

@@ -5,7 +5,6 @@ using System.Text;
 // Class1.cs
 // A simple managed DLL that contains two methods
 
-
 namespace ManagedDLL
 {
 	// Interface declaration.
@@ -14,8 +13,7 @@ namespace ManagedDLL
         int Add(int Number1, int Number2);
         int Subtract(int Num1, int Num2);
         double ArrayTest(double[] ar);
-        //string stringTest(string str);
-        void ReturnArrayTest(ref double[] arr);
+        void InitialiseArray(ref double[] arr);
     };
 
 
@@ -33,10 +31,6 @@ namespace ManagedDLL
             return Num1 - Num2;
         }
 
-       /* public string stringTest(string str)
-        {
-            return (str + " : testing");
-        }*/
 
         public double ArrayTest(double[] ar){
 
@@ -45,7 +39,7 @@ namespace ManagedDLL
         }
 
         // receive 1D array from c++ and return a 1D array to c++
-        public void ReturnArrayTest(ref double[] arr) //double[] ar)
+        public void InitialiseArray(ref double[] arr) //double[] ar)
         {
 
             arr = new double[4];
@@ -54,15 +48,7 @@ namespace ManagedDLL
             arr[1] = 1;
             arr[2] = 2;
             arr[3] = 5;
-            //ar[1] = 100;
-
-            //return  arr;
         }
 
-
-
     }
-
-
-
 }
