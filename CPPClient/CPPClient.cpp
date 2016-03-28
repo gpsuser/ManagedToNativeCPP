@@ -17,6 +17,29 @@ using namespace ManagedDLL;
 // to print the contents of the SAFEARAY once initialised inside managed dll
 static void printSAFEARRAY(SAFEARRAY*);
 
+void CreateSafeArray(SAFEARRAY** saData)        
+{
+    //double data[10]; // some sample data to write into the created safearray
+    SAFEARRAYBOUND  Bound;
+    Bound.lLbound   = 0;
+    Bound.cElements = 10;
+
+    *saData = SafeArrayCreate(VT_R8, 1, &Bound);
+
+    double HUGEP *pdFreq;
+    HRESULT hr = SafeArrayAccessData(*saData, (void HUGEP* FAR*)&pdFreq);
+    if (SUCCEEDED(hr))
+    {
+            // copy sample values from data[] to this safearray
+        for (DWORD i = 0; i < 10; i++)
+        {
+            *pdFreq++ = (double)i; //data[i];
+        }
+        SafeArrayUnaccessData(*saData);
+    }
+}
+
+
 int _tmain(int argc, _TCHAR* argv[])
 {
     // Initialize COM.
@@ -59,18 +82,23 @@ int _tmain(int argc, _TCHAR* argv[])
 	// CComSafeArray<double> res(4);
     
 	SAFEARRAY* res = NULL;
+    CreateSafeArray(&res); // Create the safe array
+
 	pICalc->InitialiseArray(&res);
 	
 	printSAFEARRAY(res); 
-  
-	SafeArrayDestroy(res);
+   SafeArrayDestroy(res);
+   res = NULL;
 
- 
+ // http://stackoverflow.com/questions/3730840/how-to-create-and-initialize-safearray-of-doubles-in-c-to-pass-to-c-sharp
 
 	// Uninitialize COM.
      CoUninitialize();
-    return 0;
+
+	 return 0;
 }
+
+
 
 // print the contents of the SAFEARRAY after it has been initialised in the managed .dll
 static void printSAFEARRAY(SAFEARRAY* res){
@@ -90,7 +118,7 @@ static void printSAFEARRAY(SAFEARRAY* res){
 	  for (int i = 0; i < cnt_elements; ++i)  // iterate through returned values
 	  {                              
 		double lVal = pVals[i];   
-		wprintf(L"The element value is %d\n", lVal); //lVal);
+		wprintf(L"The element value is %f\n", lVal); //lVal);  // float
 		//std::cout << "element " << i << ": value = " << lVal << std::endl;
 	  } 
 
