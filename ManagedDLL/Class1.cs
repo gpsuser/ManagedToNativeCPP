@@ -41,15 +41,19 @@ namespace ManagedDLL
         // receive 1D array from c++ and return a 1D array to c++
         public void InitialiseArray(ref double[] arr) //double[] ar)
         {
-
-            //arr = new double[4];
+           // **** try redo this using "new" given that the print 'f' as introduced
+            /*
+            arr = new double[4];
+            arr[0] = 0;
+            arr[1] = 1;
+            arr[2] = 2;
+            arr[3] = 5;
+            */
+            
             for (int i = 0; i < 10 ; i++ )
             {
                 arr[i] = i + 2;
-                //arr[0] = 0;
-                //arr[1] = 1;
-                //arr[2] = 2;
-                //arr[3] = 5;
+                
             }
         }
 

@@ -82,6 +82,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	// CComSafeArray<double> res(4);
     
 	SAFEARRAY* res = NULL;
+
+	// try redo this with the old verson of the initialisation (now that the print issue was resolved (i.e. float not int)
     CreateSafeArray(&res); // Create the safe array
 
 	pICalc->InitialiseArray(&res);
