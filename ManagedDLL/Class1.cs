@@ -13,7 +13,10 @@ namespace ManagedDLL
         int Add(int Number1, int Number2);
         int Subtract(int Num1, int Num2);
         double ArrayTest(double[] ar);
+      //  int CommSafe2D(int[,] arr);
         void InitialiseArray(ref double[] arr);
+        void Initialise2DArray(ref int[,] arrInt);
+        
     };
 
 
@@ -38,6 +41,14 @@ namespace ManagedDLL
             return ar[1];
         }
 
+        // http://climserv.ipsl.polytechnique.fr/documentation/idl_help/2D_Array_Examples.html
+        // receive a 2D commsafe array
+     //   public int CommSafe2D(int[,] arr)
+       // {
+
+         //   return arr[1, 1];
+        //}
+
         // receive 1D array from c++ and return a 1D array to c++
         public void InitialiseArray(ref double[] arr) //double[] ar)
         {
@@ -57,5 +68,28 @@ namespace ManagedDLL
             }
         }
 
-    }
-}
+        // https://limbioliong.wordpress.com/2011/06/22/passing-multi-dimensional-managed-array-to-c-part-2/
+        // receive 2D array from c++ and return a 2D array to c++
+        public void Initialise2DArray(ref int[,] arrInt)
+        {
+            
+
+          //  int d1 = arrInt.Length;
+           // int d2 = arrInt.GetUpperBound();
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    arrInt[i,j] = i + j;
+                }
+            }
+
+          //  int k = 10;
+         //   Console.WriteLine(arrInt[0, 0]);
+
+        }
+        
+
+    }  // classs
+} // namespace

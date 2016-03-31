@@ -71,6 +71,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	wprintf(L"The result is %f\n", lResult1);
 
 
+
 	// send in array to C#, try to receive an array result from c#
 	// http://www.codeproject.com/Questions/322206/CComSafeArray-ways-of-use
     //CComSafeArray<double> lResult2(4);
@@ -93,6 +94,42 @@ int _tmain(int argc, _TCHAR* argv[])
    res = NULL;
 
  // http://stackoverflow.com/questions/3730840/how-to-create-and-initialize-safearray-of-doubles-in-c-to-pass-to-c-sharp
+
+
+	// *********** CONSIDER SENDING IN A 2D ARAY OF INTEGERS *************
+	 SAFEARRAY*	pSafeArray = NULL;
+    
+	 // Array of 2 SAFEARRAYBOUND structs. One for each dimension.
+     SAFEARRAYBOUND	rgsabound[2];
+      // Set the bounds information FOR array with the following dimensions :[2][3]
+  
+      // 6 elemenst in total. All elements laid out in memory sequentially and contiguously.
+      rgsabound[0].lLbound = 0;        
+      rgsabound[0].cElements = 3;      // cols
+      rgsabound[1].lLbound = 0;
+      rgsabound[1].cElements = 2;      // rows
+      
+	  // Create the SAFEARRAY: VT_I4, // This signifies the integer type.: 2,  // This signifies 2 dimensions,  rgsabound:  // Bounds information.
+      pSafeArray = SafeArrayCreate (VT_I4,2,rgsabound);
+
+
+     //CreateSafeArray(&res); // Create the safe array
+
+	 
+//	pICalc->Initialise2DArray(&pSafeArray);
+	
+//	printSAFEARRAY(res); 
+   SafeArrayDestroy(pSafeArray);
+   pSafeArray = NULL;
+
+   // TESTING COMSAFE ARRAY MANIPULATION
+      // send in an array to c#, get single result back
+   //double tmp[4] = NULL; // lResult1 = 0.0;
+   //pICalc->TestCommSafeArray(arr,&tmp); //    ArrayTest(arr, &lResult1);
+	//wprintf(L"The result is %f\n", lResult1);
+
+    int k = 10;
+
 
 	// Uninitialize COM.
      CoUninitialize();

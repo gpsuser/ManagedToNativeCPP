@@ -3,7 +3,7 @@
 // c:\users\grant\desktop\dev\gitprojects\csharpinsidecpp2005\cppclient\debug\manageddll.tlh
 //
 // C++ source equivalent of Win32 type library C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.tlb
-// compiler-generated file created 03/28/16 at 16:36:15 - DO NOT EDIT!
+// compiler-generated file created 03/31/16 at 12:13:34 - DO NOT EDIT!
 
 #pragma once
 #pragma pack(push, 8)
@@ -18,7 +18,7 @@ namespace ManagedDLL {
 
 struct __declspec(uuid("115558bc-f022-4d76-8afe-d8b98a714cb4"))
 /* LIBID */ __ManagedDLL;
-struct __declspec(uuid("060b971f-afa3-349f-9d4d-c61985339948"))
+struct __declspec(uuid("4bcf17b8-f128-3f35-964e-7ec2ed480abe"))
 /* dual interface */ ICalculator;
 struct /* coclass */ ManagedClass;
 struct __declspec(uuid("c8e9181c-f064-3ec1-869e-042c6fdd3e46"))
@@ -35,7 +35,7 @@ _COM_SMARTPTR_TYPEDEF(_ManagedClass, __uuidof(_ManagedClass));
 // Type library items
 //
 
-struct __declspec(uuid("060b971f-afa3-349f-9d4d-c61985339948"))
+struct __declspec(uuid("4bcf17b8-f128-3f35-964e-7ec2ed480abe"))
 ICalculator : IDispatch
 {
     //
@@ -55,6 +55,8 @@ ICalculator : IDispatch
         /*[out,retval]*/ double * pRetVal ) = 0;
       virtual HRESULT __stdcall InitialiseArray (
         /*[in,out]*/ SAFEARRAY * * arr ) = 0;
+      virtual HRESULT __stdcall Initialise2DArray (
+        /*[in,out]*/ SAFEARRAY * * arrInt ) = 0;
 };
 
 struct __declspec(uuid("d64f8cf1-6f49-3730-896f-75fb4c5e2cf5"))
