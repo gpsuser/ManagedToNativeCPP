@@ -5,6 +5,8 @@ using System.Text;
 // Class1.cs
 // A simple managed DLL that contains two methods
 
+// RegAsm.exe ManagedDLL.dll /tlb:ManagedDLL.tlb /codebase
+
 namespace ManagedDLL
 {
 	// Interface declaration.
@@ -77,7 +79,7 @@ namespace ManagedDLL
           //  int d1 = arrInt.Length;
            // int d2 = arrInt.GetUpperBound();
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {

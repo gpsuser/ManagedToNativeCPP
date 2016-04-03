@@ -17,6 +17,21 @@ using namespace ManagedDLL;
 // to print the contents of the SAFEARAY once initialised inside managed dll
 static void printSAFEARRAY(SAFEARRAY*);
 
+void Fill2DSafeArray(LPSAFEARRAY lpsaArray, long Value) 
+{ 
+   int lower0 = lpsaArray->rgsabound[0].lLbound; 
+   int upper0 = lpsaArray->rgsabound[0].cElements + lower0; 
+   long* pData = (long*)lpsaArray->pvData; 
+   for(int i = lower0; i < upper0; i++) { 
+      int lower1 = lpsaArray->rgsabound[1].lLbound; 
+      int upper1 = lpsaArray->rgsabound[1].cElements + lower1; 
+      for(int j = lower1; j < upper1; j++) { 
+         *pData = i + j; 
+         pData++; 
+      } 
+   }
+}
+
 void CreateSafeArray(SAFEARRAY** saData)        
 {
     //double data[10]; // some sample data to write into the created safearray
@@ -90,13 +105,70 @@ int _tmain(int argc, _TCHAR* argv[])
 	pICalc->InitialiseArray(&res);
 	
 	printSAFEARRAY(res); 
-   SafeArrayDestroy(res);
-   res = NULL;
+    SafeArrayDestroy(res);
+    res = NULL;
 
  // http://stackoverflow.com/questions/3730840/how-to-create-and-initialize-safearray-of-doubles-in-c-to-pass-to-c-sharp
 
 
 	// *********** CONSIDER SENDING IN A 2D ARAY OF INTEGERS *************
+	// http://edn.embarcadero.com/cs/article/22016 NBNBNBNBNBNB ***
+
+// Create 2D array of long integers. Similar to... 
+   // long Array[20][10]; 
+   SAFEARRAYBOUND sabdBounds[2] = { {10, 0}, {20, 0}}; // gps: {num cols ,col start}{num rows, row start}
+   LPSAFEARRAY lpsaArray = SafeArrayCreate(VT_I4, 2, sabdBounds);
+
+   // Fill array with values 
+   Fill2DSafeArray(lpsaArray, 5);
+
+  // long lDim1Size = lUbound - lLbound + 1;
+
+// Get elements of the array and display the value.
+//https://limbioliong.wordpress.com/2011/06/22/passing-multi-dimensional-managed-array-to-c-part-2
+   int counter = 0;
+
+   for (int i = 0; i < 20; i++)   // gps: rows 
+{
+	for (int j = 0; j < 10; j++) // gps: cols
+	{
+	//	for (int k = 0; k < lDim3Size; k++)
+	//	{
+			long	rgIndices[2];
+			int		value;
+			// The indices of the array are specified
+			// using "rgIndices".
+			// Here the specificatio indicates that
+			// we want to access the item at array
+			// location : [i][j][k].
+			//rgIndices[0] = k;
+			rgIndices[0] = j;
+			rgIndices[1] = i;
+			SafeArrayGetElement
+			(
+				lpsaArray,
+				rgIndices,
+				(void FAR*)&value
+			);
+			printf (" counter %d : %d\r\n", counter ,value);
+			counter ++;
+		//}
+	}
+}
+
+
+
+int k = 10;
+
+  // printSAFEARRAY(lpsaArray); 
+
+   // Destroy array 
+   SafeArrayDestroy(lpsaArray); 
+
+
+
+
+/*
 	 SAFEARRAY*	pSafeArray = NULL;
     
 	 // Array of 2 SAFEARRAYBOUND structs. One for each dimension.
@@ -107,20 +179,30 @@ int _tmain(int argc, _TCHAR* argv[])
       rgsabound[0].lLbound = 0;        
       rgsabound[0].cElements = 3;      // cols
       rgsabound[1].lLbound = 0;
-      rgsabound[1].cElements = 2;      // rows
+      rgsabound[1].cElements = 3;      // rows
       
 	  // Create the SAFEARRAY: VT_I4, // This signifies the integer type.: 2,  // This signifies 2 dimensions,  rgsabound:  // Bounds information.
       pSafeArray = SafeArrayCreate (VT_I4,2,rgsabound);
+*/
 
+// first initialise 2d safearray
 
+	  /* for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    pSafeArray[i,j] = i + j;
+                }
+            }
+*/
      //CreateSafeArray(&res); // Create the safe array
 
 	 
 //	pICalc->Initialise2DArray(&pSafeArray);
 	
 //	printSAFEARRAY(res); 
-   SafeArrayDestroy(pSafeArray);
-   pSafeArray = NULL;
+ //  SafeArrayDestroy(pSafeArray);
+  // pSafeArray = NULL;
 
    // TESTING COMSAFE ARRAY MANIPULATION
       // send in an array to c#, get single result back
@@ -128,7 +210,7 @@ int _tmain(int argc, _TCHAR* argv[])
    //pICalc->TestCommSafeArray(arr,&tmp); //    ArrayTest(arr, &lResult1);
 	//wprintf(L"The result is %f\n", lResult1);
 
-    int k = 10;
+    
 
 
 	// Uninitialize COM.
@@ -145,7 +227,6 @@ static void printSAFEARRAY(SAFEARRAY* res){
 	double* pVals;
     HRESULT hr1 = SafeArrayAccessData(res, (void**)&pVals); // direct access to SA memory
 
-
 	if (SUCCEEDED(hr1))
 	{
 	  long lowerBound, upperBound;  // get array bounds
@@ -160,6 +241,5 @@ static void printSAFEARRAY(SAFEARRAY* res){
 		wprintf(L"The element value is %f\n", lVal); //lVal);  // float
 		//std::cout << "element " << i << ": value = " << lVal << std::endl;
 	  } 
-
     }
 }
