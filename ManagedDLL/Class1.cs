@@ -72,6 +72,7 @@ namespace ManagedDLL
 
         // https://limbioliong.wordpress.com/2011/06/22/passing-multi-dimensional-managed-array-to-c-part-2/
         // receive 2D array from c++ and return a 2D array to c++
+        // MIGHT HAVE TO USE LONG INSTEAD OF INT
         public void Initialise2DArray(ref int[,] arrInt)
         {
             
@@ -79,11 +80,13 @@ namespace ManagedDLL
           //  int d1 = arrInt.Length;
            // int d2 = arrInt.GetUpperBound();
 
-            for (int i = 0; i < 3; i++)
+            // GET DIMENSIONS AUTOMATICALLY
+
+            for (int i = 0; i < 20; i++)         // ROWS
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 10; j++)     // COLS
                 {
-                    arrInt[i,j] = i + j;
+                    arrInt[i,j] = i + j+100;
                 }
             }
 
@@ -92,6 +95,8 @@ namespace ManagedDLL
 
         }
         
+
+
 
     }  // classs
 } // namespace

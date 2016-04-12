@@ -60,26 +60,26 @@ int _tmain(int argc, _TCHAR* argv[])
     res = NULL;
 
  
-// Create 2D array of long integers. Similar to... 
-   // long Array[20][10]; 
-	int numCols = 10;
-	int numRows = 20;
+	// Create 2D array of long integers. Similar to... long Array[20][10]; 
+		int numCols = 10;
+		int numRows = 20;
 
-   SAFEARRAYBOUND sabdBounds[2] = { {10, 0}, {20, 0}}; // gps: {num cols ,col start}{num rows, row start}
-   LPSAFEARRAY lpsaArray = SafeArrayCreate(VT_I4, 2, sabdBounds);
+		SAFEARRAYBOUND sabdBounds[2] = { {10, 0}, {20, 0}}; // gps: {num cols ,col start}{num rows, row start}
+		LPSAFEARRAY lpsaArray = SafeArrayCreate(VT_I4, 2, sabdBounds);
+	  
+		Fill2DSafeArray(lpsaArray, 5);
 
-   
-   Fill2DSafeArray(lpsaArray, 5);
+		pICalc->Initialise2DArray(&lpsaArray);
 
-   print_2D_SAFEARRAY(lpsaArray,numRows,numCols);
+		print_2D_SAFEARRAY(lpsaArray,numRows,numCols);
 
-int k = 10;
+		int k = 10;
 
-   // Destroy array 
-   SafeArrayDestroy(lpsaArray); 
+	   // Destroy array 
+	   SafeArrayDestroy(lpsaArray); 
 
-    // Uninitialize COM.
-     CoUninitialize();
+	   // Uninitialize COM.
+	   CoUninitialize();
 
 	 return 0;
 }
