@@ -17,7 +17,7 @@ namespace ManagedDLL
         double ArrayTest(double[] ar);
       //  int CommSafe2D(int[,] arr);
         void InitialiseArray(ref double[] arr);
-        void Initialise2DArray(ref int[,] arrInt);
+        void Initialise2DArray(ref long[,] arrInt);
         
     };
 
@@ -73,18 +73,20 @@ namespace ManagedDLL
         // https://limbioliong.wordpress.com/2011/06/22/passing-multi-dimensional-managed-array-to-c-part-2/
         // receive 2D array from c++ and return a 2D array to c++
         // MIGHT HAVE TO USE LONG INSTEAD OF INT
-        public void Initialise2DArray(ref int[,] arrInt)
+        public void Initialise2DArray(ref long[,] arrInt)
         {
-            
+
+
+            long limit = 8; // arbitrary upper bound less than the matrix numrows and less than matrix num columns
 
           //  int d1 = arrInt.Length;
            // int d2 = arrInt.GetUpperBound();
 
             // GET DIMENSIONS AUTOMATICALLY
 
-            for (int i = 0; i < 20; i++)         // ROWS
+            for (long i = 0; i < limit; i++)         // ROWS
             {
-                for (int j = 0; j < 10; j++)     // COLS
+                for (long j = 0; j < limit; j++)     // COLS
                 {
                     arrInt[i,j] = i + j+100;
                 }

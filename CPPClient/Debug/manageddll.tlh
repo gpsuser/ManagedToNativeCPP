@@ -3,7 +3,7 @@
 // c:\users\grant\desktop\dev\gitprojects\csharpinsidecpp2005\cppclient\debug\manageddll.tlh
 //
 // C++ source equivalent of Win32 type library C:\Users\grant\Desktop\dev\gitProjects\CsharpInsideCpp2005\ManagedDLL\bin\Debug\ManagedDLL.tlb
-// compiler-generated file created 04/12/16 at 13:06:58 - DO NOT EDIT!
+// compiler-generated file created 04/23/16 at 04:11:01 - DO NOT EDIT!
 
 #pragma once
 #pragma pack(push, 8)
@@ -18,7 +18,7 @@ namespace ManagedDLL {
 
 struct __declspec(uuid("115558bc-f022-4d76-8afe-d8b98a714cb4"))
 /* LIBID */ __ManagedDLL;
-struct __declspec(uuid("4bcf17b8-f128-3f35-964e-7ec2ed480abe"))
+struct __declspec(uuid("287b4115-bb45-3b26-ad1e-9b6857e29ef6"))
 /* dual interface */ ICalculator;
 struct /* coclass */ ManagedClass;
 struct __declspec(uuid("c8e9181c-f064-3ec1-869e-042c6fdd3e46"))
@@ -35,7 +35,7 @@ _COM_SMARTPTR_TYPEDEF(_ManagedClass, __uuidof(_ManagedClass));
 // Type library items
 //
 
-struct __declspec(uuid("4bcf17b8-f128-3f35-964e-7ec2ed480abe"))
+struct __declspec(uuid("287b4115-bb45-3b26-ad1e-9b6857e29ef6"))
 ICalculator : IDispatch
 {
     //

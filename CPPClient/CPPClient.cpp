@@ -16,7 +16,7 @@ using namespace ManagedDLL;
 
 static void print_1D_SAFEARRAY(SAFEARRAY*);
 void Create_1D_SafeArray(SAFEARRAY**);
-void Fill2DSafeArray(LPSAFEARRAY, long); 
+void Fill2DSafeArray(LPSAFEARRAY); 
 void print_2D_SAFEARRAY(LPSAFEARRAY, int, int);
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -60,6 +60,14 @@ int _tmain(int argc, _TCHAR* argv[])
     res = NULL;
 
  
+
+ // ALTERNATIVE APPROACH: (TO SENDING IN A 2D ARRAY IS TO SEND IN A 1D ARRAY (CONTIGUOUS IN MEMORY)) 
+ // THEN IN C# SET UP INDICES SO THAT IT IS TREATED LIKE A 2D ARRAY
+ // SEND IT BACK TO C++
+ // SET UP THE PRINT FUNCTION IN C++ TO PRINT THE CONTENTS AS IF IT WERE A 2D ARRAY (I.E. GET INDICES RIGHT)
+
+
+
 	// Create 2D array of long integers. Similar to... long Array[20][10]; 
 		int numCols = 10;
 		int numRows = 20;
@@ -67,7 +75,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		SAFEARRAYBOUND sabdBounds[2] = { {10, 0}, {20, 0}}; // gps: {num cols ,col start}{num rows, row start}
 		LPSAFEARRAY lpsaArray = SafeArrayCreate(VT_I4, 2, sabdBounds);
 	  
-		Fill2DSafeArray(lpsaArray, 5);
+		Fill2DSafeArray(lpsaArray);
 
 		pICalc->Initialise2DArray(&lpsaArray);
 
@@ -161,11 +169,13 @@ void Create_1D_SafeArray(SAFEARRAY** saData)
 }
 
 // initialise 2D safearray
-void Fill2DSafeArray(LPSAFEARRAY lpsaArray, long Value) 
+void Fill2DSafeArray(LPSAFEARRAY lpsaArray) 
 { 
    int lower0 = lpsaArray->rgsabound[0].lLbound; 
    int upper0 = lpsaArray->rgsabound[0].cElements + lower0; 
+   
    long* pData = (long*)lpsaArray->pvData; 
+   
    for(int i = lower0; i < upper0; i++) { 
       int lower1 = lpsaArray->rgsabound[1].lLbound; 
       int upper1 = lpsaArray->rgsabound[1].cElements + lower1; 
